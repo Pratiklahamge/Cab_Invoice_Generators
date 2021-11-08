@@ -1,6 +1,6 @@
 package com.bridgelabz;
 
-//Purpose  - The Invoice generator should now take in multiple rides, and calculate the aggregate total for all
+//Purpose  - The Invoice generator should now return total no of rides, total fare and average fare per ride
 
 public class InvoiceService {
 	private static final double COST_PER_KM = 10;
@@ -15,11 +15,19 @@ public class InvoiceService {
 		return totalFare;
 	}
 
-	public double calculateFare(Ride[] rides) {
+	public double calculateTotalFare(Ride[] rides) {
 		double totalFare = 0.0;
 		for (Ride ride : rides) {
 			totalFare = calculateFare(ride.getDistance(), ride.getTime());
 		}
 		return totalFare;
+
+	}
+	public InvoiceSummary calculateFare(Ride[] rides) {
+		double totalFare = 0.0;
+		for (Ride ride : rides) {
+			totalFare += calculateFare(ride.getDistance(), ride.getTime());
+		}
+		return new InvoiceSummary(rides.length, totalFare);
 	}
 }
